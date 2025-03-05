@@ -23,6 +23,16 @@ mix.styles([
     'public/css/custom.css',
 ], 'public/css/all.css').version();
 
+mix.webpackConfig({
+    output: {
+        chunkFilename: '[name].js'
+    },
+    stats: {
+        children: true, 
+        warnings: true
+    }
+});
+
 mix.js(
     'public/js/scripts.js', 'public/js/scripts.min.js')
     .js('resources/assets/js/profile.js', 'public/assets/js/profile.js')
