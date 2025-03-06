@@ -15,7 +15,7 @@ class UserController extends AdminController
      *
      * @var string
      */
-    protected $title = 'User';
+    protected $title = 'Users'; // Changed from 'User' to 'Users'
 
     /**
      * Make a grid builder.
