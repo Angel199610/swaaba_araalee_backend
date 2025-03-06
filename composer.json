@@ -16,9 +16,13 @@
         "infyomlabs/laravel-ui-stisla": "^3.0",
         "infyomlabs/stisla-templates": "^1.0",
         "laravel/framework": "^8.12",
+        "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.5",
+        "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.2",
+        "open-admin-ext/api-tester": "^1.0",
         "open-admin-ext/helpers": "^1.0",
+        "open-admin-ext/page-designer": "^1.0",
         "open-admin-org/open-admin": "^1.0",
         "tightenco/ziggy": "^1.4",
         "yajra/laravel-datatables-oracle": "~9.0"
