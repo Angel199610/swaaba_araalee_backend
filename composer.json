@@ -7,7 +7,7 @@
         "laravel"
     ],
     "license": "MIT",
-    "require": {
+"require": {
         "php": "^7.3|^8.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
@@ -21,9 +21,9 @@
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.2",
         "open-admin-ext/api-tester": "^1.0",
+        "open-admin-ext/config": "^1.0",
         "open-admin-ext/helpers": "^1.0",
-        "open-admin-ext/page-designer": "^1.0",
-        "open-admin-org/open-admin": "^1.0",
+        "open-admin-org/open-admin": "1.0.14",
         "tightenco/ziggy": "^1.4",
         "yajra/laravel-datatables-oracle": "~9.0"
     },

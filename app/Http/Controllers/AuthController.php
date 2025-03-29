@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
 {
@@ -13,7 +14,18 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users'),
+                function ($attribute, $value, $fail) {
+                    if (!$this->isValidEmailDomain($value)) {
+                        $fail('The email domain does not exist or is invalid.');
+                    }
+                },
+            ],
             'password' => 'required|string|min:8',
         ]);
 
@@ -32,25 +44,10 @@ class AuthController extends Controller
         ], 201);
     }
 
-    public function login(Request $request)
+    private function isValidEmailDomain($email)
     {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
-
-        if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
-        }
-
-        $user = Auth::user();
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'Login successful',
-            'user' => $user,
-            'token' => $token,
-        ]);
+        $domain = substr(strrchr($email, "@"), 1);
+        return checkdnsrr($domain, 'MX') || checkdnsrr($domain, 'A');
     }
 
     public function user(Request $request)
@@ -62,5 +59,31 @@ class AuthController extends Controller
     {
         $request->user()->currentAccessToken()->delete();
         return response()->json(['message' => 'Logged out successfully']);
+    }
+
+    // New login method
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $token = $user->createToken('auth_token')->plainTextToken;
+
+            return response()->json([
+                'message' => 'Login successful',
+                'user' => $user,
+                'token' => $token,
+            ], 200);
+        }
+
+        return response()->json([
+            'message' => 'Invalid credentials',
+        ], 401);
     }
 }

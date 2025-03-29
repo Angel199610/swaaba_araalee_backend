@@ -2,14 +2,14 @@
 
 namespace App\Admin\Controllers;
 
-use App\Http\Controllers\Controller;
+use OpenAdmin\Admin\Controllers\AdminController;
 use OpenAdmin\Admin\Admin;
-use OpenAdmin\Admin\Controllers\Dashboard;
-use OpenAdmin\Admin\Layout\Column;
 use OpenAdmin\Admin\Layout\Content;
 use OpenAdmin\Admin\Layout\Row;
+use OpenAdmin\Admin\Layout\Column;
+use OpenAdmin\Admin\Controllers\Dashboard;
 
-class HomeController extends Controller
+class HomeController extends AdminController
 {
     public function index(Content $content)
     {
@@ -19,15 +19,12 @@ class HomeController extends Controller
             ->description('Description...')
             ->row(Dashboard::title())
             ->row(function (Row $row) {
-
                 $row->column(4, function (Column $column) {
                     $column->append(Dashboard::environment());
                 });
-
                 $row->column(4, function (Column $column) {
                     $column->append(Dashboard::extensions());
                 });
-
                 $row->column(4, function (Column $column) {
                     $column->append(Dashboard::dependencies());
                 });

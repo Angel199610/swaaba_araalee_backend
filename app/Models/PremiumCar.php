@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PremiumCar extends Model
 {
-    protected $table = 'premium_car';
+    protected $fillable = [
+        'title', 'brand', 'price', 'mileage', 'transmission', 'engine', 'color', 'location',
+        'image_front', 'image_back', 'image_inside'
+    ];
 }
